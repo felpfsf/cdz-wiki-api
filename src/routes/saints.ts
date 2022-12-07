@@ -124,7 +124,7 @@ export async function saintsRoutes(app: FastifyInstance) {
 
   app.put<{ Body: IBodyParams; Params: IByIdParam }>(
     `${apiBaseUrl}/saints/:id`,
-    async (req, res) => {
+    async (req, reply) => {
       const { id } = req.params
       const { name } = req.body
 
@@ -133,6 +133,10 @@ export async function saintsRoutes(app: FastifyInstance) {
         data: {
           name
         }
+      })
+      return reply.status(201).send({
+        message: 'Dado alterado com sucesso',
+        updatePutSaint
       })
     }
   )
@@ -148,7 +152,7 @@ export async function saintsRoutes(app: FastifyInstance) {
         }
       })
 
-      return reply.status(202).send({
+      return reply.status(200).send({
         message: 'Dados deletados com sucesso'
       })
     }
