@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Saint {
+  id           Int     @id @default(autoincrement())
+  name         String  @unique
+  alignment    String?
+  charClass    String?
+  armour       String?
+  constelation String?
+  imageUrl     String?
+  sex          String?
+  age          Int?
+  sign         String?
+  specie       String?
+  master       Master?
+}
+
+model Master {
+  id           Int     @id @default(autoincrement())
+  name         String? @unique
+  alignment    String?
+  charClass    String
+  armour       String?
+  constelation String?
+  imageUrl     String?
+  sex          String?
+  age          Int?
+  sign         String?
+  specie       String?
+  saintId      Int     @unique
+  saint        Saint   @relation(fields: [saintId], references: [id])
+}
