@@ -3,6 +3,8 @@ import fastifyCors from '@fastify/cors'
 import { saintsRoutes } from './routes/saints'
 import { masterRoutes } from './routes/masters'
 
+const port = process.env.PORT || 3333
+
 async function bootstrap() {
   const app = fastify({
     logger: true
@@ -16,7 +18,7 @@ async function bootstrap() {
   await app.register(saintsRoutes)
   await app.register(masterRoutes)
 
-  await app.listen({ port: 3333, host: '0.0.0.0' })
+  await app.listen({ port: port, host: '0.0.0.0' })
 }
 
 bootstrap()
